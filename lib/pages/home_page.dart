@@ -1,0 +1,337 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:web_app/required_pages/answer.dart';
+import 'package:web_app/required_pages/ask_for_site_completion.dart';
+import 'package:web_app/required_pages/browser.dart';
+import 'package:web_app/required_pages/conditional_loop.dart';
+import 'package:web_app/required_pages/data_enable_disable.dart';
+import 'package:web_app/required_pages/doh_loopup.dart';
+import 'package:web_app/required_pages/dropbox_download.dart';
+import 'package:web_app/required_pages/dropbox_upload.dart';
+import 'package:web_app/required_pages/dynamic_gsm_cell_info.dart';
+import 'package:web_app/required_pages/dynamic_wcdma_cell_info.dart';
+import 'package:web_app/required_pages/facebook_post_photo.dart';
+import 'package:web_app/required_pages/facebook_post_update.dart';
+import 'package:web_app/required_pages/facebook_post_video.dart';
+import 'package:web_app/required_pages/ftp_upload.dart';
+import 'package:web_app/required_pages/gps_enable_disable.dart';
+import 'package:web_app/required_pages/instagram_post_comment.dart';
+import 'package:web_app/required_pages/instagram_post_video.dart';
+import 'package:web_app/required_pages/line_recieve.dart';
+import 'package:web_app/required_pages/line_send.dart';
+import 'package:web_app/required_pages/log_server.dart';
+import 'package:web_app/required_pages/lte_earfcn_lock.dart';
+import 'package:web_app/required_pages/modem_data_packet.dart';
+import 'package:web_app/required_pages/nPerf.dart';
+import 'package:web_app/required_pages/ott_video_streaming_mos.dart';
+import 'package:web_app/required_pages/pause.dart';
+import 'package:web_app/required_pages/ping.dart';
+import 'package:web_app/required_pages/play_facebook_video.dart';
+import 'package:web_app/required_pages/r99_lock.dart';
+import 'package:web_app/required_pages/require_cell_file.dart';
+import 'package:web_app/required_pages/send_email.dart';
+import 'package:web_app/required_pages/send_mms.dart';
+import 'package:web_app/required_pages/send_sms.dart';
+import 'package:web_app/required_pages/set_apn.dart';
+import 'package:web_app/required_pages/set_varible_statement.dart';
+import 'package:web_app/required_pages/smtp_upload.dart';
+import 'package:web_app/required_pages/tcpdump_record.dart';
+import 'package:web_app/required_pages/temprory_aeroplane_mode.dart';
+import 'package:web_app/required_pages/voice_ftp_upload.dart';
+import 'package:web_app/required_pages/wait_pci.dart';
+import 'package:web_app/required_pages/whatsapp_send_message.dart';
+import 'package:web_app/required_pages/wifi_connect.dart';
+import 'package:web_app/required_pages/wifi_scan.dart';
+
+import '../addon/provider.dart';
+import '../required_pages/bec_router_diagonstic_config.dart';
+import '../addon/side_bar_items.dart';
+import '../required_pages/youtube_upload_videos.dart';
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String selectedItem = '';
+  List<Widget> script = [];
+  int? selectedCardIndex;
+  void moveCardUp() {
+    final cardProvider = Provider.of<SaveCardState>(context, listen: false);
+    if (selectedCardIndex! > 0) {
+      final temp = cardProvider.saveCard[selectedCardIndex!];
+      cardProvider.saveCard[selectedCardIndex!] = cardProvider.saveCard[selectedCardIndex! - 1];
+      cardProvider.saveCard[selectedCardIndex! - 1] = temp;
+      setState(() {
+        selectedCardIndex = selectedCardIndex! - 1;
+      });
+    }
+  }
+
+  void moveCardDown() {
+    final cardProvider = Provider.of<SaveCardState>(context, listen: false);
+    if (selectedCardIndex! < cardProvider.saveCard.length - 1) {
+      final temp = cardProvider.saveCard[selectedCardIndex!];
+      cardProvider.saveCard[selectedCardIndex!] = cardProvider.saveCard[selectedCardIndex! + 1];
+      cardProvider.saveCard[selectedCardIndex! + 1] = temp;
+      setState(() {
+        selectedCardIndex = selectedCardIndex! + 1;
+      });
+    }
+  }
+
+  void deleteCard() {
+    final cardProvider = Provider.of<SaveCardState>(context, listen: false);
+    cardProvider.saveCard.removeAt(selectedCardIndex!);
+    setState(() {
+      selectedCardIndex = null;
+    });
+  }
+
+  void editCard(BuildContext context) {
+    final cardProvider = Provider.of<SaveCardState>(context, listen: false);
+    final currentCard = cardProvider.saveCard[selectedCardIndex!] as ScriptCard;
+    final controller = TextEditingController(text: currentCard.text);
+
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          backgroundColor: Colors.black,
+          title: Text('Edit Script', style: TextStyle(color: Colors.white)),
+          content: TextField(
+            controller: controller,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(hintText: 'Enter new script', hintStyle: TextStyle(color: Colors.grey)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                final newText = controller.text;
+                cardProvider.saveCard[selectedCardIndex!] = ScriptCard(text: newText);
+                Navigator.pop(context);
+                setState(() {});
+              },
+              child: Text('Save', style: TextStyle(color: Color(0xff04bcb0))),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void saveCard() {
+    // Placeholder: Normally you’d persist the script to local or remote storage
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(child: Text('Script saved!', style: TextStyle(color: Colors.white))),
+        backgroundColor: Colors.black45,
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(16),
+            alignment: Alignment.centerLeft,
+            color: Color(0xff22282e),
+            child: Text(
+              'Sigma-AQ',
+              style: TextStyle(
+                color: Color(0xff04bcb0),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                SideBar(
+                  selectedItem: selectedItem,
+                  updateSelection: updateSelection,
+                  onArrowTap: () {  },
+                ),
+                Expanded(
+                  child: Container(
+                    color: Color(0xff03120e),
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Script',
+                              style: TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            Spacer(),
+                            if (selectedCardIndex != null) ...[
+                              IconCard(
+                                ic: Icon(Icons.arrow_drop_down_rounded, color: Color(0xff04bcb0)),
+                                onTap: moveCardDown,
+                              ),
+                              IconCard(
+                                ic: Icon(Icons.arrow_drop_up_rounded, color: Color(0xff04bcb0)),
+                                onTap: moveCardUp,
+                              ),
+                              IconCard(
+                                ic: Icon(Icons.edit, color: Color(0xff04bcb0)),
+                                onTap: () => editCard(context),
+                              ),
+                              IconCard(
+                                ic: Icon(Icons.save, color: Color(0xff04bcb0)),
+                                onTap: () => saveCard(),
+                              ),
+                              IconCard(
+                                ic: Icon(Icons.delete, color: Color(0xff04bcb0)),
+                                onTap: () => deleteCard(),
+                              ),
+                            ]
+                          ],
+                        ),
+
+
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: Consumer<SaveCardState>(
+                            builder: (context, cardProvider, child) {
+                              return ListView.builder(
+                                itemCount: cardProvider.saveCard.length,
+                                itemBuilder: (context, index) {
+                                  final card = cardProvider.saveCard[index];
+                                  return GestureDetector(
+                                    onLongPress: () {
+                                      setState(() {
+                                        selectedCardIndex = index;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: selectedCardIndex == index
+                                            ? Border.all(color: Colors.tealAccent, width: 2)
+                                            : null,
+                                      ),
+                                      child: card,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (selectedItem == 'GPS Enable/Disable') GpsEnableDisable(),
+                if (selectedItem == 'Voice + FTP Upload') VoiceFtpUpload(),
+                if (selectedItem == 'Dropbox Download') DropboxDownloadPage(),
+                if (selectedItem == 'Tcpdump Record') TcpDumpRecordPage(),
+                if (selectedItem == 'Require Cell File') RequireCellFilePage(),
+                if (selectedItem == 'LTE EARFCN Lock') LTEEARFCNLockPage(),
+                if (selectedItem == 'OTT Video Streaming MOS') OttVideoStreamingMos(),
+                if (selectedItem == 'Ask for site completion after script ended') CompletionFile(),
+                if (selectedItem == 'Set Variable Statement') SetVariablePage(),
+                if (selectedItem == 'Modem Data Packet Logging Enable') ModemDataPacketConfigPage(),
+                if (selectedItem == 'LINE Receive') LineRecieve(),
+                if (selectedItem == 'Dynamic GSM Cell Info') GSMCellInfoPage(),
+                if (selectedItem == 'Facebook (Post Video)') FacebookPostVideo(),
+                if (selectedItem == 'Pause') PausePage(),
+                if (selectedItem == 'Instagram post video') InstagramPostVideoPage(),
+                if (selectedItem == 'Dynamic WCDMA Cell Info') GSMCellInfoPage(),
+                if (selectedItem == 'Instagram post comment') InstagramPostCommentPage(),
+                if (selectedItem == 'BEC Router Diagnostic Config') RouterConfigPage(),
+                if (selectedItem == 'Browser') BrowserPage(),
+                if (selectedItem == 'Data Enable/Disable') DataEnableDisable(),
+                if (selectedItem == 'Send Email') SendEmailPage(),
+                if (selectedItem == 'Ping') PingStatementPage(),
+                if (selectedItem == 'OTT Video Streaming') OttVideoStreamingMos(),
+                if (selectedItem == 'Play Facebook Video') PlayFacebookVideoPage(),
+                if (selectedItem == 'nPerf Test') NPerfTestPage(),
+                if (selectedItem == 'DoH Lookup') DohLookupPage(),
+                if (selectedItem == 'YouTube (Upload Video)') UploadVideoPage(),
+                if (selectedItem == 'Send SMS') SendSmsPage(),
+                if (selectedItem == 'WhatsApp send message') WhatsAppMessageSettingsPage(),
+                if (selectedItem == 'WiFi Scan Enable/Disable') WifiScanPage(),
+                if (selectedItem == 'Send MMS') SendMmsPage(),
+                if (selectedItem == 'Facebook (Post Status Update)') FacebookPostPage(),
+                if (selectedItem == 'WiFi Connect') WifiConnectPage(),
+                if (selectedItem == 'SFTP Upload') SftpUploadPage(),
+                if (selectedItem == 'FTP Upload') FTPUploadPage(),
+                if (selectedItem == 'Facebook (Post Photo)') FacebookPostPhotoPage(),
+                if (selectedItem == 'LINE Send Identifier Test') LineSendPage(),
+                if (selectedItem == 'Set Log Server') SetLogStatementPage(),
+                if (selectedItem == 'Answer') AnswerPage(),
+                if (selectedItem == 'Instagram post photo') FacebookPostPhotoPage(),
+                if (selectedItem == 'Set APN') SetApnPage(),
+                if (selectedItem == 'Conditional Loop') ConditionalLoopPage(),
+                if (selectedItem == 'Dropbox Upload') FileUploadPage(),
+                if (selectedItem == 'R99 Lock Enable/Disable') R99LockPage(),
+                if (selectedItem == 'Temporary Airplane Mode') TemporaryAeroplaneModePage(),
+                if (selectedItem == 'Wait for PCI') WaitForPciPage(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void updateSelection(String item) {
+    setState(() {
+      if (selectedItem == item) {
+        selectedItem = '';
+      } else {
+        selectedItem = item;
+      }
+    });
+  }
+}
+
+class ScriptCard extends StatelessWidget {
+  final String text;
+
+  ScriptCard({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Color(0xff111e21),
+      child: Padding(
+        padding: EdgeInsets.all(12),
+        child: Text(text, style: TextStyle(color: Colors.white)),
+      ),
+    );
+  }
+}
+
+class IconCard extends StatelessWidget {
+  final Icon ic;
+  final VoidCallback? onTap;
+
+  const IconCard({Key? key, required this.ic, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 4),
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: ic,
+      ),
+    );
+  }
+}
