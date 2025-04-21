@@ -89,11 +89,7 @@ class SideBar extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(8),
                 child: IconButton(
-                  onPressed: (){
-                    // if(selectedItem == 'GPS Enable/Disable'){
-                    //   Navigator.push(context, MaterialPageRoute(builder: (context) => GpsEnableDisable()));
-                    // }
-                  },
+                  onPressed: onArrowTap,
                   icon: Icon(Icons.arrow_forward_ios,
                     color: Colors.teal,
                     size: 16,)

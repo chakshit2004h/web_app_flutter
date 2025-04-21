@@ -148,6 +148,75 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  // Add this function inside _HomePageState
+  Widget? getSelectedWidget() {
+    switch (selectedItem) {
+      case 'Traceroute': return Trasroute();
+      case 'GPS Enable/Disable': return GpsEnableDisable();
+      case 'Voice + FTP Upload': return VoiceFtpUpload();
+      case 'Dropbox Download': return DropboxDownloadPage();
+      case 'Tcpdump Record': return TcpDumpRecordPage();
+      case 'Require Cell File': return RequireCellFilePage();
+      case 'LTE EARFCN Lock': return LTEEARFCNLockPage();
+      case 'OTT Video Streaming MOS': return OttVideoStreamingMos();
+      case 'Ask for site completion after script ended': return CompletionFile();
+      case 'Set Variable Statement': return SetVariablePage();
+      case 'Modem Data Packet Logging Enable': return ModemDataPacketConfigPage();
+      case 'LINE Receive': return LineRecieve();
+      case 'Dynamic GSM Cell Info': return GSMCellInfoPage();
+      case 'Facebook (Post Video)': return FacebookPostVideo();
+      case 'Pause': return PausePage();
+      case 'Instagram post video': return InstagramPostVideoPage();
+      case 'Dynamic WCDMA Cell Info': return GSMCellInfoPage();
+      case 'Instagram post comment': return InstagramPostCommentPage();
+      case 'BEC Router Diagnostic Config': return RouterConfigPage();
+      case 'Browser': return BrowserPage();
+      case 'Data Enable/Disable': return DataEnableDisable();
+      case 'Send Email': return SendEmailPage();
+      case 'Ping': return PingStatementPage();
+      case 'OTT Video Streaming': return OttVideoStreamingMos();
+      case 'Play Facebook Video': return PlayFacebookVideoPage();
+      case 'nPerf Test': return NPerfTestPage();
+      case 'DoH Lookup': return DohLookupPage();
+      case 'YouTube (Upload Video)': return UploadVideoPage();
+      case 'Send SMS': return SendSmsPage();
+      case 'WhatsApp send message': return WhatsAppMessageSettingsPage();
+      case 'WiFi Scan Enable/Disable': return WifiScanPage();
+      case 'Send MMS': return SendMmsPage();
+      case 'Facebook (Post Status Update)': return FacebookPostPage();
+      case 'WiFi Connect': return WifiConnectPage();
+      case 'SFTP Upload': return SftpUploadPage();
+      case 'FTP Upload': return FTPUploadPage();
+      case 'Facebook (Post Photo)': return FacebookPostPhotoPage();
+      case 'LINE Send Identifier Test': return LineSendPage();
+      case 'Set Log Server': return SetLogStatementPage();
+      case 'Answer': return AnswerPage();
+      case 'Instagram post photo': return FacebookPostPhotoPage();
+      case 'Set APN': return SetApnPage();
+      case 'Conditional Loop': return ConditionalLoopPage();
+      case 'Dropbox Upload': return FileUploadPage();
+      case 'R99 Lock Enable/Disable': return R99LockPage();
+      case 'Temporary Airplane Mode': return TemporaryAeroplaneModePage();
+      case 'Wait for PCI': return WaitForPciPage();
+      default: return null;
+    }
+  }
+
+  void onArrow() {
+    if (selectedItem.isEmpty) return;
+
+    final widget = getSelectedWidget();
+    if (widget == null) return;
+
+    final cardProvider = Provider.of<SaveCardState>(context, listen: false);
+    cardProvider.saveCard.add(
+      ScriptCard(text: selectedItem), // Or you might want to create a more detailed card
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Added $selectedItem to script')),
+    );
+  }
 
 
   @override
@@ -175,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                 SideBar(
                   selectedItem: selectedItem,
                   updateSelection: updateSelection,
-                  onArrowTap: () {  },
+                  onArrowTap: onArrow,
                 ),
                 Expanded(
                   child: Container(
