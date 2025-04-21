@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_app/required_pages/gps_enable_disable.dart';
 
 class SideBar extends StatelessWidget {
   final String selectedItem;
@@ -87,10 +88,15 @@ class SideBar extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 padding: EdgeInsets.all(8),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.teal,
-                  size: 16,
+                child: IconButton(
+                  onPressed: (){
+                    // if(selectedItem == 'GPS Enable/Disable'){
+                    //   Navigator.push(context, MaterialPageRoute(builder: (context) => GpsEnableDisable()));
+                    // }
+                  },
+                  icon: Icon(Icons.arrow_forward_ios,
+                    color: Colors.teal,
+                    size: 16,)
                 ),
               ),
             ),

@@ -37,6 +37,7 @@ import 'package:web_app/required_pages/set_varible_statement.dart';
 import 'package:web_app/required_pages/smtp_upload.dart';
 import 'package:web_app/required_pages/tcpdump_record.dart';
 import 'package:web_app/required_pages/temprory_aeroplane_mode.dart';
+import 'package:web_app/required_pages/trasroute.dart';
 import 'package:web_app/required_pages/voice_ftp_upload.dart';
 import 'package:web_app/required_pages/wait_pci.dart';
 import 'package:web_app/required_pages/whatsapp_send_message.dart';
@@ -88,37 +89,54 @@ class _HomePageState extends State<HomePage> {
       selectedCardIndex = null;
     });
   }
-
   void editCard(BuildContext context) {
+    print("Edit card clicked");
     final cardProvider = Provider.of<SaveCardState>(context, listen: false);
-    final currentCard = cardProvider.saveCard[selectedCardIndex!] as ScriptCard;
-    final controller = TextEditingController(text: currentCard.text);
 
-    showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          backgroundColor: Colors.black,
-          title: Text('Edit Script', style: TextStyle(color: Colors.white)),
-          content: TextField(
-            controller: controller,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(hintText: 'Enter new script', hintStyle: TextStyle(color: Colors.grey)),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                final newText = controller.text;
-                cardProvider.saveCard[selectedCardIndex!] = ScriptCard(text: newText);
-                Navigator.pop(context);
-                setState(() {});
-              },
-              child: Text('Save', style: TextStyle(color: Color(0xff04bcb0))),
+    // Check if the selected card exists
+    if (selectedCardIndex != null) {
+      final currentCard = cardProvider.saveCard[selectedCardIndex!] as ScriptCard;
+      final controller = TextEditingController(text: currentCard.text);
+
+      showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            backgroundColor: Colors.black,
+            title: Text('Edit Script', style: TextStyle(color: Colors.white)),
+            content: TextField(
+              controller: controller,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: 'Enter new script',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
             ),
-          ],
-        );
-      },
-    );
+            actions: [
+              TextButton(
+                onPressed: () {
+                  final newText = controller.text;
+                  if (newText.isNotEmpty) {
+                    // Update the card's text
+                    cardProvider.saveCard[selectedCardIndex!] =
+                        ScriptCard(text: newText);
+                    // Close the dialog
+                    Navigator.pop(context);
+                    setState(() {});  // Refresh the UI to reflect the changes
+                  } else {
+                    // Optionally, show an error if text is empty
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Text cannot be empty")),
+                    );
+                  }
+                },
+                child: Text('Save', style: TextStyle(color: Color(0xff04bcb0))),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void saveCard() {
@@ -231,6 +249,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                if (selectedItem == 'Traceroute') Trasroute(),
                 if (selectedItem == 'GPS Enable/Disable') GpsEnableDisable(),
                 if (selectedItem == 'Voice + FTP Upload') VoiceFtpUpload(),
                 if (selectedItem == 'Dropbox Download') DropboxDownloadPage(),
