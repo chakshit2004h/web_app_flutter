@@ -139,15 +139,46 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void saveCard() {
-    // Placeholder: Normally you’d persist the script to local or remote storage
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Center(child: Text('Script saved!', style: TextStyle(color: Colors.white))),
-        backgroundColor: Colors.black45,
-      ),
+  void saveCard(BuildContext context) {
+    TextEditingController fileNameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color(0xff22282e),
+          title: Text('Enter file name',style: TextStyle(color: Colors.white),),
+          content: TextField(
+            controller: fileNameController,
+            decoration: InputDecoration(hintText: "File name",hintStyle: TextStyle(color: Colors.white),),
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              child: Text('Cancel',style: TextStyle(color: Colors.white),),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: Text('Save',style: TextStyle(color: Colors.black),),
+              onPressed: () {
+                String fileName = fileNameController.text.trim();
+                Navigator.of(context).pop(); // Close the dialog
+                // Placeholder: Save logic goes here using fileName
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(child: Text('Script "$fileName" saved!', style: TextStyle(color: Colors.white))),
+                    backgroundColor: Colors.black45,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
+
   // Add this function inside _HomePageState
   Widget? getSelectedWidget() {
     switch (selectedItem) {
@@ -275,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               IconCard(
                                 ic: Icon(Icons.save, color: Color(0xff04bcb0)),
-                                onTap: () => saveCard(),
+                                onTap: () => saveCard(context),
                               ),
                               IconCard(
                                 ic: Icon(Icons.delete, color: Color(0xff04bcb0)),
