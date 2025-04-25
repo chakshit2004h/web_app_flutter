@@ -96,8 +96,6 @@ class _InstagramPostCommentPageState extends State<InstagramPostCommentPage> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.save, color: Colors.white),
-                    SizedBox(width: 8),
                     Text(
                       'Post Comment',
                       style: TextStyle(

@@ -248,158 +248,167 @@ class _HomePageState extends State<HomePage> {
       SnackBar(content: Text('Added $selectedItem to script')),
     );
   }
-
+  void clearSelection() {
+    setState(() {
+      selectedCardIndex = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(16),
-            alignment: Alignment.centerLeft,
-            color: Color(0xff22282e),
-            child: Text(
-              'Sigma-AQ',
-              style: TextStyle(
-                color: Color(0xff04bcb0),
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: clearSelection,
+      behavior: HitTestBehavior.opaque,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(16),
+              alignment: Alignment.centerLeft,
+              color: Color(0xff22282e),
+              child: Text(
+                'Sigma-AQ',
+                style: TextStyle(
+                  color: Color(0xff04bcb0),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Row(
-              children: [
-                SideBar(
-                  selectedItem: selectedItem,
-                  updateSelection: updateSelection,
-                  onArrowTap: onArrow,
-                ),
-                Expanded(
-                  child: Container(
-                    color: Color(0xff03120e),
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Script',
-                              style: TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            Spacer(),
-                            if (selectedCardIndex != null) ...[
-                              IconCard(
-                                ic: Icon(Icons.arrow_drop_down_rounded, color: Color(0xff04bcb0)),
-                                onTap: moveCardDown,
+            Expanded(
+              child: Row(
+                children: [
+                  SideBar(
+                    selectedItem: selectedItem,
+                    updateSelection: updateSelection,
+                    onArrowTap: onArrow,
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Color(0xff03120e),
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Script',
+                                style: TextStyle(color: Colors.white, fontSize: 20),
                               ),
-                              IconCard(
-                                ic: Icon(Icons.arrow_drop_up_rounded, color: Color(0xff04bcb0)),
-                                onTap: moveCardUp,
-                              ),
-                              IconCard(
-                                ic: Icon(Icons.edit, color: Color(0xff04bcb0)),
-                                onTap: () => editCard(context),
-                              ),
-                              IconCard(
-                                ic: Icon(Icons.save, color: Color(0xff04bcb0)),
-                                onTap: () => saveCard(context),
-                              ),
-                              IconCard(
-                                ic: Icon(Icons.delete, color: Color(0xff04bcb0)),
-                                onTap: () => deleteCard(),
-                              ),
-                            ]
-                          ],
-                        ),
-
-
-                        SizedBox(height: 10),
-                        Expanded(
-                          child: Consumer<SaveCardState>(
-                            builder: (context, cardProvider, child) {
-                              return ListView.builder(
-                                itemCount: cardProvider.saveCard.length,
-                                itemBuilder: (context, index) {
-                                  final card = cardProvider.saveCard[index];
-                                  return GestureDetector(
-                                    onLongPress: () {
-                                      setState(() {
-                                        selectedCardIndex = index;
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: selectedCardIndex == index
-                                            ? Border.all(color: Colors.tealAccent, width: 2)
-                                            : null,
-                                      ),
-                                      child: card,
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                              Spacer(),
+                              if (selectedCardIndex != null) ...[
+                                IconCard(
+                                  ic: Icon(Icons.arrow_drop_down_rounded, color: Color(0xff04bcb0)),
+                                  onTap: moveCardDown,
+                                ),
+                                IconCard(
+                                  ic: Icon(Icons.arrow_drop_up_rounded, color: Color(0xff04bcb0)),
+                                  onTap: moveCardUp,
+                                ),
+                                IconCard(
+                                  ic: Icon(Icons.edit, color: Color(0xff04bcb0)),
+                                  onTap: () => editCard(context),
+                                ),
+                                IconCard(
+                                  ic: Icon(Icons.save, color: Color(0xff04bcb0)),
+                                  onTap: () => saveCard(context),
+                                ),
+                                IconCard(
+                                  ic: Icon(Icons.delete, color: Color(0xff04bcb0)),
+                                  onTap: () => deleteCard(),
+                                ),
+                              ]
+                            ],
                           ),
-                        ),
-                      ],
+      
+      
+                          SizedBox(height: 10),
+                          Expanded(
+                            child: Consumer<SaveCardState>(
+                              builder: (context, cardProvider, child) {
+                                return ListView.builder(
+                                  itemCount: cardProvider.saveCard.length,
+                                  itemBuilder: (context, index) {
+                                    final card = cardProvider.saveCard[index];
+                                    return GestureDetector(
+                                      onLongPress: () {
+                                        setState(() {
+                                          selectedCardIndex = index;
+                                        });
+                                      },
+                                      onTap: (){},
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: selectedCardIndex == index
+                                              ? Border.all(color: Colors.tealAccent, width: 2)
+                                              : null,
+                                        ),
+                                        child: card,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                if (selectedItem == 'Traceroute') Trasroute(),
-                if (selectedItem == 'GPS Enable/Disable') GpsEnableDisable(),
-                if (selectedItem == 'Voice + FTP Upload') VoiceFtpUpload(),
-                if (selectedItem == 'Dropbox Download') DropboxDownloadPage(),
-                if (selectedItem == 'Tcpdump Record') TcpDumpRecordPage(),
-                if (selectedItem == 'Require Cell File') RequireCellFilePage(),
-                if (selectedItem == 'LTE EARFCN Lock') LTEEARFCNLockPage(),
-                if (selectedItem == 'OTT Video Streaming MOS') OttVideoStreamingMos(),
-                if (selectedItem == 'Ask for site completion after script ended') CompletionFile(),
-                if (selectedItem == 'Set Variable Statement') SetVariablePage(),
-                if (selectedItem == 'Modem Data Packet Logging Enable') ModemDataPacketConfigPage(),
-                if (selectedItem == 'LINE Receive') LineRecieve(),
-                if (selectedItem == 'Dynamic GSM Cell Info') GSMCellInfoPage(),
-                if (selectedItem == 'Facebook (Post Video)') FacebookPostVideo(),
-                if (selectedItem == 'Pause') PausePage(),
-                if (selectedItem == 'Instagram post video') InstagramPostVideoPage(),
-                if (selectedItem == 'Dynamic WCDMA Cell Info') GSMCellInfoPage(),
-                if (selectedItem == 'Instagram post comment') InstagramPostCommentPage(),
-                if (selectedItem == 'BEC Router Diagnostic Config') RouterConfigPage(),
-                if (selectedItem == 'Browser') BrowserPage(),
-                if (selectedItem == 'Data Enable/Disable') DataEnableDisable(),
-                if (selectedItem == 'Send Email') SendEmailPage(),
-                if (selectedItem == 'Ping') PingStatementPage(),
-                if (selectedItem == 'OTT Video Streaming') OttVideoStreamingMos(),
-                if (selectedItem == 'Play Facebook Video') PlayFacebookVideoPage(),
-                if (selectedItem == 'nPerf Test') NPerfTestPage(),
-                if (selectedItem == 'DoH Lookup') DohLookupPage(),
-                if (selectedItem == 'YouTube (Upload Video)') UploadVideoPage(),
-                if (selectedItem == 'Send SMS') SendSmsPage(),
-                if (selectedItem == 'WhatsApp send message') WhatsAppMessageSettingsPage(),
-                if (selectedItem == 'WiFi Scan Enable/Disable') WifiScanPage(),
-                if (selectedItem == 'Send MMS') SendMmsPage(),
-                if (selectedItem == 'Facebook (Post Status Update)') FacebookPostPage(),
-                if (selectedItem == 'WiFi Connect') WifiConnectPage(),
-                if (selectedItem == 'SFTP Upload') SftpUploadPage(),
-                if (selectedItem == 'FTP Upload') FTPUploadPage(),
-                if (selectedItem == 'Facebook (Post Photo)') FacebookPostPhotoPage(),
-                if (selectedItem == 'LINE Send Identifier Test') LineSendPage(),
-                if (selectedItem == 'Set Log Server') SetLogStatementPage(),
-                if (selectedItem == 'Answer') AnswerPage(),
-                if (selectedItem == 'Instagram post photo') FacebookPostPhotoPage(),
-                if (selectedItem == 'Set APN') SetApnPage(),
-                if (selectedItem == 'Conditional Loop') ConditionalLoopPage(),
-                if (selectedItem == 'Dropbox Upload') FileUploadPage(),
-                if (selectedItem == 'R99 Lock Enable/Disable') R99LockPage(),
-                if (selectedItem == 'Temporary Airplane Mode') TemporaryAeroplaneModePage(),
-                if (selectedItem == 'Wait for PCI') WaitForPciPage(),
-              ],
+                  if (selectedItem == 'Traceroute') Trasroute(),
+                  if (selectedItem == 'GPS Enable/Disable') GpsEnableDisable(),
+                  if (selectedItem == 'Voice + FTP Upload') VoiceFtpUpload(),
+                  if (selectedItem == 'Dropbox Download') DropboxDownloadPage(),
+                  if (selectedItem == 'Tcpdump Record') TcpDumpRecordPage(),
+                  if (selectedItem == 'Require Cell File') RequireCellFilePage(),
+                  if (selectedItem == 'LTE EARFCN Lock') LTEEARFCNLockPage(),
+                  if (selectedItem == 'OTT Video Streaming MOS') OttVideoStreamingMos(),
+                  if (selectedItem == 'Ask for site completion after script ended') CompletionFile(),
+                  if (selectedItem == 'Set Variable Statement') SetVariablePage(),
+                  if (selectedItem == 'Modem Data Packet Logging Enable') ModemDataPacketConfigPage(),
+                  if (selectedItem == 'LINE Receive') LineRecieve(),
+                  if (selectedItem == 'Dynamic GSM Cell Info') GSMCellInfoPage(),
+                  if (selectedItem == 'Facebook (Post Video)') FacebookPostVideo(),
+                  if (selectedItem == 'Pause') PausePage(),
+                  if (selectedItem == 'Instagram post video') InstagramPostVideoPage(),
+                  if (selectedItem == 'Dynamic WCDMA Cell Info') GSMCellInfoPage(),
+                  if (selectedItem == 'Instagram post comment') InstagramPostCommentPage(),
+                  if (selectedItem == 'BEC Router Diagnostic Config') RouterConfigPage(),
+                  if (selectedItem == 'Browser') BrowserPage(),
+                  if (selectedItem == 'Data Enable/Disable') DataEnableDisable(),
+                  if (selectedItem == 'Send Email') SendEmailPage(),
+                  if (selectedItem == 'Ping') PingStatementPage(),
+                  if (selectedItem == 'OTT Video Streaming') OttVideoStreamingMos(),
+                  if (selectedItem == 'Play Facebook Video') PlayFacebookVideoPage(),
+                  if (selectedItem == 'nPerf Test') NPerfTestPage(),
+                  if (selectedItem == 'DoH Lookup') DohLookupPage(),
+                  if (selectedItem == 'YouTube (Upload Video)') UploadVideoPage(),
+                  if (selectedItem == 'Send SMS') SendSmsPage(),
+                  if (selectedItem == 'WhatsApp send message') WhatsAppMessageSettingsPage(),
+                  if (selectedItem == 'WiFi Scan Enable/Disable') WifiScanPage(),
+                  if (selectedItem == 'Send MMS') SendMmsPage(),
+                  if (selectedItem == 'Facebook (Post Status Update)') FacebookPostPage(),
+                  if (selectedItem == 'WiFi Connect') WifiConnectPage(),
+                  if (selectedItem == 'SFTP Upload') SftpUploadPage(),
+                  if (selectedItem == 'FTP Upload') FTPUploadPage(),
+                  if (selectedItem == 'Facebook (Post Photo)') FacebookPostPhotoPage(),
+                  if (selectedItem == 'LINE Send Identifier Test') LineSendPage(),
+                  if (selectedItem == 'Set Log Server') SetLogStatementPage(),
+                  if (selectedItem == 'Answer') AnswerPage(),
+                  if (selectedItem == 'Instagram post photo') FacebookPostPhotoPage(),
+                  if (selectedItem == 'Set APN') SetApnPage(),
+                  if (selectedItem == 'Conditional Loop') ConditionalLoopPage(),
+                  if (selectedItem == 'Dropbox Upload') FileUploadPage(),
+                  if (selectedItem == 'R99 Lock Enable/Disable') R99LockPage(),
+                  if (selectedItem == 'Temporary Airplane Mode') TemporaryAeroplaneModePage(),
+                  if (selectedItem == 'Wait for PCI') WaitForPciPage(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -106,10 +106,8 @@ class _NPerfTestPageState extends State<NPerfTestPage> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.save, color: Colors.white),
-                    SizedBox(width: 8),
                     Text(
-                      'Save Settings',
+                      'Save',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

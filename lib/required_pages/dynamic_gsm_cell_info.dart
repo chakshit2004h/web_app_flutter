@@ -94,8 +94,6 @@ class _GSMCellInfoPageState extends State<GSMCellInfoPage> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.save, color: Colors.white),
-                    SizedBox(width: 8),
                     Text(
                       'Save',
                       style: TextStyle(

@@ -169,16 +169,19 @@ class _SideBarState extends State<SideBar> {
           child: Center(
             child: GestureDetector(
               onTap: widget.onArrowTap,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(8),
-                child: IconButton(
-                  onPressed: widget.onArrowTap,
-                  icon: const Icon(Icons.arrow_forward_ios,
-                      color: Colors.teal, size: 16),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(4),
+                  child: IconButton(
+                    onPressed: widget.onArrowTap,
+                    icon: const Icon(Icons.arrow_forward_ios,
+                        color: Colors.teal, size: 16),
+                  ),
                 ),
               ),
             ),

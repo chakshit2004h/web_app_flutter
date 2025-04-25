@@ -158,8 +158,6 @@ class _VoiceFtpUploadState extends State<VoiceFtpUpload> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: const [
-                  Icon(Icons.save, color: Colors.white),
-                  SizedBox(width: 8),
                   Text(
                     'Save',
                     style: TextStyle(
@@ -228,17 +226,27 @@ class _VoiceFtpUploadState extends State<VoiceFtpUpload> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
-          Switch(
-            value: value,
-            onChanged: onChanged,
-            activeColor: Colors.tealAccent,
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          Transform.scale(
+            scale: 0.8, // Adjust this value to make the switch smaller or larger
+            child: Switch(
+              value: value,
+              onChanged: onChanged,
+              activeColor: Colors.tealAccent,
+            ),
           ),
         ],
       ),
     );
   }
+
 
   Widget cardOutput({
     required int answerTimeout,
