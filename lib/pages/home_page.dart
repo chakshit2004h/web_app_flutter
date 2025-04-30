@@ -13,13 +13,16 @@ import 'package:web_app/required_pages/dynamic_wcdma_cell_info.dart';
 import 'package:web_app/required_pages/facebook_post_photo.dart';
 import 'package:web_app/required_pages/facebook_post_update.dart';
 import 'package:web_app/required_pages/facebook_post_video.dart';
+import 'package:web_app/required_pages/ftp_download.dart';
 import 'package:web_app/required_pages/ftp_upload.dart';
 import 'package:web_app/required_pages/gps_enable_disable.dart';
 import 'package:web_app/required_pages/instagram_post_comment.dart';
+import 'package:web_app/required_pages/instagram_post_photo.dart';
 import 'package:web_app/required_pages/instagram_post_video.dart';
 import 'package:web_app/required_pages/line_recieve.dart';
 import 'package:web_app/required_pages/line_send.dart';
 import 'package:web_app/required_pages/log_server.dart';
+import 'package:web_app/required_pages/loop.dart';
 import 'package:web_app/required_pages/lte_earfcn_lock.dart';
 import 'package:web_app/required_pages/modem_data_packet.dart';
 import 'package:web_app/required_pages/nPerf.dart';
@@ -29,15 +32,18 @@ import 'package:web_app/required_pages/ping.dart';
 import 'package:web_app/required_pages/play_facebook_video.dart';
 import 'package:web_app/required_pages/r99_lock.dart';
 import 'package:web_app/required_pages/require_cell_file.dart';
+import 'package:web_app/required_pages/run_shell_command.dart';
 import 'package:web_app/required_pages/send_email.dart';
 import 'package:web_app/required_pages/send_mms.dart';
 import 'package:web_app/required_pages/send_sms.dart';
 import 'package:web_app/required_pages/set_apn.dart';
+import 'package:web_app/required_pages/set_tag_name.dart';
 import 'package:web_app/required_pages/set_varible_statement.dart';
 import 'package:web_app/required_pages/smtp_upload.dart';
 import 'package:web_app/required_pages/tcpdump_record.dart';
 import 'package:web_app/required_pages/temprory_aeroplane_mode.dart';
 import 'package:web_app/required_pages/trasroute.dart';
+import 'package:web_app/required_pages/tshark_capture.dart';
 import 'package:web_app/required_pages/voice_ftp_upload.dart';
 import 'package:web_app/required_pages/wait_pci.dart';
 import 'package:web_app/required_pages/whatsapp_send_message.dart';
@@ -182,7 +188,7 @@ class _HomePageState extends State<HomePage> {
   // Add this function inside _HomePageState
   Widget? getSelectedWidget() {
     switch (selectedItem) {
-      case 'Traceroute': return Trasroute();
+      case 'Traceroute': return Traceroute();
       case 'GPS Enable/Disable': return GpsEnableDisable();
       case 'Voice + FTP Upload': return VoiceFtpUpload();
       case 'Dropbox Download': return DropboxDownloadPage();
@@ -192,6 +198,8 @@ class _HomePageState extends State<HomePage> {
       case 'OTT Video Streaming MOS': return OttVideoStreamingMos();
       case 'Ask for site completion after script ended': return CompletionFile();
       case 'Set Variable Statement': return SetVariablePage();
+      case 'Set Tag Name': return TagNamePage();
+      case 'Tshark Capture': return TsharkCapture();
       case 'Modem Data Packet Logging Enable': return ModemDataPacketConfigPage();
       case 'LINE Receive': return LineRecieve();
       case 'Dynamic GSM Cell Info': return GSMCellInfoPage();
@@ -201,7 +209,6 @@ class _HomePageState extends State<HomePage> {
       case 'Dynamic WCDMA Cell Info': return GSMCellInfoPage();
       case 'Instagram post comment': return InstagramPostCommentPage();
       case 'BEC Router Diagnostic Config': return RouterConfigPage();
-      case 'Browser': return BrowserPage();
       case 'Data Enable/Disable': return DataEnableDisable();
       case 'Send Email': return SendEmailPage();
       case 'Ping': return PingStatementPage();
@@ -209,6 +216,7 @@ class _HomePageState extends State<HomePage> {
       case 'Play Facebook Video': return PlayFacebookVideoPage();
       case 'nPerf Test': return NPerfTestPage();
       case 'DoH Lookup': return DohLookupPage();
+      case 'FTP Download': return FtpDownloadPage();
       case 'YouTube (Upload Video)': return UploadVideoPage();
       case 'Send SMS': return SendSmsPage();
       case 'WhatsApp send message': return WhatsAppMessageSettingsPage();
@@ -229,6 +237,7 @@ class _HomePageState extends State<HomePage> {
       case 'R99 Lock Enable/Disable': return R99LockPage();
       case 'Temporary Airplane Mode': return TemporaryAeroplaneModePage();
       case 'Wait for PCI': return WaitForPciPage();
+      case 'Run Shell Command': return RunShellCommand();
       default: return null;
     }
   }
@@ -357,7 +366,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  if (selectedItem == 'Traceroute') Trasroute(),
+                  if (selectedItem == 'Traceroute') Traceroute(),
                   if (selectedItem == 'GPS Enable/Disable') GpsEnableDisable(),
                   if (selectedItem == 'Voice + FTP Upload') VoiceFtpUpload(),
                   if (selectedItem == 'Dropbox Download') DropboxDownloadPage(),
@@ -376,7 +385,6 @@ class _HomePageState extends State<HomePage> {
                   if (selectedItem == 'Dynamic WCDMA Cell Info') GSMCellInfoPage(),
                   if (selectedItem == 'Instagram post comment') InstagramPostCommentPage(),
                   if (selectedItem == 'BEC Router Diagnostic Config') RouterConfigPage(),
-                  if (selectedItem == 'Browser') BrowserPage(),
                   if (selectedItem == 'Data Enable/Disable') DataEnableDisable(),
                   if (selectedItem == 'Send Email') SendEmailPage(),
                   if (selectedItem == 'Ping') PingStatementPage(),
@@ -397,13 +405,18 @@ class _HomePageState extends State<HomePage> {
                   if (selectedItem == 'LINE Send Identifier Test') LineSendPage(),
                   if (selectedItem == 'Set Log Server') SetLogStatementPage(),
                   if (selectedItem == 'Answer') AnswerPage(),
-                  if (selectedItem == 'Instagram post photo') FacebookPostPhotoPage(),
+                  if (selectedItem == 'Instagram post photo') InstagramPostPhotoPage(),
                   if (selectedItem == 'Set APN') SetApnPage(),
                   if (selectedItem == 'Conditional Loop') ConditionalLoopPage(),
                   if (selectedItem == 'Dropbox Upload') FileUploadPage(),
                   if (selectedItem == 'R99 Lock Enable/Disable') R99LockPage(),
                   if (selectedItem == 'Temporary Airplane Mode') TemporaryAeroplaneModePage(),
                   if (selectedItem == 'Wait for PCI') WaitForPciPage(),
+                  if (selectedItem == 'Loop') LoopPage(),
+                  if (selectedItem == 'FTP Download') FtpDownloadPage(),
+                  if (selectedItem == 'Set Tag Name') TagNamePage(),
+                  if (selectedItem == 'Tshark Capture') TsharkCapture(),
+                  if (selectedItem == 'Run Shell Command') RunShellCommand(),
                 ],
               ),
             ),

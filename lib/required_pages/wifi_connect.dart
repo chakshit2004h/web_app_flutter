@@ -272,7 +272,7 @@ class _WifiConnectPageState extends State<WifiConnectPage> {
     required bool waitUntilTimeout,
   }) {
     return Card(
-      color: const Color(0xff101f1f),
+      color: Color(0xff101f1f),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -289,20 +289,19 @@ class _WifiConnectPageState extends State<WifiConnectPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Divider(color: Colors.white54),
-            _buildRow("SSID", ssid),
+            _buildRow("SSID:", ssid),
             _buildRow(
-                "Password", wifiPassword.isNotEmpty ? "••••••••" : "None"),
-            _buildRow("Operator", operator),
-            _buildRow("Security", security.toString()),
-            _buildRow("EAP Method", eapMethod.toString()),
-            _buildRow("Timeout", "$timeout sec"),
-            _buildRow("Public Wi-Fi", isPublicWifi ? "Yes" : "No"),
-            _buildRow("Allow Existing Config",
+                "Password:", wifiPassword.isNotEmpty ? "••••••••" : "None"),
+            _buildRow("Operator:", operator),
+            _buildRow("Security:", security.toString()),
+            _buildRow("EAP Method:", eapMethod.toString()),
+            _buildRow("Timeout:", "$timeout sec"),
+            _buildRow("Public Wi-Fi:", isPublicWifi ? "Yes" : "No"),
+            _buildRow("Allow Existing Config:",
                 allowToUseConfiguredNetwork ? "Yes" : "No"),
             _buildRow(
-                "Clear All Configs", clearAllConfigurations ? "Yes" : "No"),
-            _buildRow("Wait Until Timeout", waitUntilTimeout ? "Yes" : "No"),
+                "Clear All Configs:", clearAllConfigurations ? "Yes" : "No"),
+            _buildRow("Wait Until Timeout:", waitUntilTimeout ? "Yes" : "No"),
           ],
         ),
       ),
@@ -310,21 +309,20 @@ class _WifiConnectPageState extends State<WifiConnectPage> {
   }
   Widget _buildRow(String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(color: Colors.white70),
+            style: const TextStyle(color: Colors.white),
           ),
-          Flexible(
-            child: Text(
+            const SizedBox(width: 20,),
+            Text(
               value,
               textAlign: TextAlign.right,
               style: const TextStyle(color: Colors.white),
             ),
-          ),
         ],
       ),
     );

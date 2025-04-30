@@ -150,7 +150,7 @@ Widget cardOutput({
     color: const Color(0xff101f1f),
     elevation: 5,
     child: ListTile(
-      title: const Text("Temporary Aeroplane Mode Info", style: TextStyle(color: Colors.white)),
+      title: const Text("Temporary Airplane Mode Info", style: TextStyle(color: Colors.white)),
       subtitle: Text("Wait Duration: $waitDuration seconds", style: const TextStyle(color: Colors.white)),
     ),
   );

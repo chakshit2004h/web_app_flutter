@@ -3,56 +3,40 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../addon/provider.dart'; // Adjust import path if needed
 
-class ConditionalLoopPage extends StatefulWidget {
+class TsharkCapture extends StatefulWidget {
   @override
-  _ConditionalLoopPageState createState() => _ConditionalLoopPageState();
+  _TsharkCaptureState createState() => _TsharkCaptureState();
 }
 
-class _ConditionalLoopPageState extends State<ConditionalLoopPage> {
-  final TextEditingController _maxRunController = TextEditingController(text: '10000');
-  String _loopResult = '';
+class _TsharkCaptureState extends State<TsharkCapture> {
+  String param = "-t ad -n -p -2 -T fields -E separator\u003d, -E quote\u003dd -E header\u003dy -e _ws.col.No. -e _ws.col.Time -e _ws.col.Source -e _ws.col.Destination -e _ws.col.Protocol -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport -e _ws.col.Length -e _ws.col.Info -i any";
+  String componentName = "tshark";
+
+  final TextEditingController paramController = TextEditingController();
+  final TextEditingController componentNameController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    paramController.text = param;
+    componentNameController.text = componentName;
     _loadPreferences();
   }
 
-  // Load saved loop result from SharedPreferences
+  // Load saved values
   _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _loopResult = prefs.getString('loopResult') ?? '';
+      param = prefs.getString('param') ?? param;
+      componentName = prefs.getString('componentName') ?? componentName;
     });
   }
 
-  // Save loop result to SharedPreferences
-  _savePreferences(String result) async {
+  // Save values to SharedPreferences
+  _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('loopResult', result);
-  }
-
-  // Function to run the conditional loop and handle saving
-  void _runConditionalLoop() {
-    setState(() {
-      final int maxRun = int.tryParse(_maxRunController.text) ?? 10000;
-      String result = '';
-
-      for (int i = 1; i <= maxRun; i++) {
-        result += 'Iteration $i\n';
-        if (i == 10) {
-          result += 'Reached iteration 10, breaking loop...\n';
-          break;
-        }
-      }
-
-      _loopResult = result;
-      _savePreferences(result);  // Save the result
-      // Add to Provider state if needed
-      Provider.of<SaveCardState>(context, listen: false)
-          .addCard(loopSummaryCard(maxRun));
-
-    });
+    prefs.setString('param', param);
+    prefs.setString('componentName', componentName);
   }
 
   @override
@@ -66,15 +50,25 @@ class _ConditionalLoopPageState extends State<ConditionalLoopPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildCustomTextField(
-              label: "Enter max iterations (maxRun)",
-              controller: _maxRunController,
-              keyboardType: TextInputType.number,
-            ),
+            buildTextField("Param", paramController, onChanged: (val) {
+              setState(() => param = val);
+            }),
+            buildTextField("Component Name", componentNameController, onChanged: (val) {
+              setState(() => componentName = val);
+            }),
             const SizedBox(height: 30),
             Center(
               child: ElevatedButton(
-                onPressed: _runConditionalLoop,
+                onPressed: () {
+                  _savePreferences(); // Save to shared preferences
+
+                  // Add to Provider state
+                  Provider.of<SaveCardState>(context, listen: false)
+                      .addCard(cardOutput(cellInfo: {
+                    "param": param,
+                    "componentName": componentName,
+                  }));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -98,43 +92,34 @@ class _ConditionalLoopPageState extends State<ConditionalLoopPage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCustomTextField({
-    required String label,
-    required TextEditingController controller,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
+  Widget buildTextField(String label, TextEditingController controller,
+      {Function(String)? onChanged}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(label,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
-          keyboardType: keyboardType,
+          onChanged: onChanged,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(0xff2c2f33),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
+              borderSide: BorderSide.none,
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
+              borderSide: BorderSide.none,
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -143,23 +128,27 @@ class _ConditionalLoopPageState extends State<ConditionalLoopPage> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),
         ),
+        const SizedBox(height: 16),
       ],
     );
   }
 }
 
-Widget loopSummaryCard(int maxRun) {
+// ✅ Card Output Widget
+Widget cardOutput({
+  required Map<String, String> cellInfo,
+}) {
   return Card(
     color: const Color(0xff101f1f),
     elevation: 5,
     child: ListTile(
-      title: const Text("Conditional Loop", style: TextStyle(color: Colors.white)),
-      subtitle: Text(
-        "[$maxRun]",
-        style: const TextStyle(color: Colors.white),
+      title: const Text("Tshark Capture Info", style: TextStyle(color: Colors.white)),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: cellInfo.entries.map((entry) {
+          return Text("${entry.key}: ${entry.value}", style: const TextStyle(color: Colors.white));
+        }).toList(),
       ),
     ),
   );
 }
-
-

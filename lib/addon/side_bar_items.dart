@@ -22,7 +22,6 @@ class _SideBarState extends State<SideBar> {
   String searchQuery = '';
 
   final List<String> sidebarItems = [
-    'Search',
     'Traceroute',
     'GPS Enable/Disable',
     'Voice + FTP Upload',
@@ -41,10 +40,12 @@ class _SideBarState extends State<SideBar> {
     'Dynamic WCDMA Cell Info',
     'Instagram post comment',
     'BEC Router Diagnostic Config',
-    'Browser',
     'Data Enable/Disable',
     'Send Email',
+    'Set Tag Name',
+    'Tshark Capture',
     'Ping',
+    'Run Shell Command',
     'OTT Video Streaming',
     'Play Facebook Video',
     'nPerf Test',
@@ -58,6 +59,7 @@ class _SideBarState extends State<SideBar> {
     'WiFi Connect',
     'SFTP Upload',
     'FTP Upload',
+    'FTP Download',
     'Facebook (Post Photo)',
     'LINE Send Identifier Test',
     'Set Log Server',
@@ -70,6 +72,7 @@ class _SideBarState extends State<SideBar> {
     'R99 Lock Enable/Disable',
     'Temporary Airplane Mode',
     'Wait for PCI',
+    'Loop'
   ];
 
   @override
@@ -85,7 +88,6 @@ class _SideBarState extends State<SideBar> {
           color: const Color(0xff1a1e22),
           child: Column(
             children: [
-              if (isSearchActive)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
@@ -130,7 +132,7 @@ class _SideBarState extends State<SideBar> {
                 ),
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.only(top: 8,left: 8,right: 8,),
                   itemCount: filteredItems.length,
                   itemBuilder: (context, index) {
                     String item = filteredItems[index];

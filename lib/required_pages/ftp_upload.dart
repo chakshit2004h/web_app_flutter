@@ -210,7 +210,7 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
             const Text(
               'Ftp Upload',
               style: TextStyle(
-                color: Color(0xff04bcb0),
+                color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -221,27 +221,22 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: Text(
+                    Text(
                         "${entry.key}:",
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Text(
+                    const SizedBox(width: 20,),
+                    Text(
                         entry.value,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),

@@ -218,7 +218,7 @@ class _WhatsAppMessageSettingsPageState extends State<WhatsAppMessageSettingsPag
     required int postPhotoMode,
   }) {
     return Card(
-      color: const Color(0xff2c2f33),
+      color: Color(0xff101f1f),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Padding(
         padding: const EdgeInsets.all(12),

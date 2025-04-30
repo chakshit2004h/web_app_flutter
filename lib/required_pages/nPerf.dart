@@ -119,8 +119,6 @@ class _NPerfTestPageState extends State<NPerfTestPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            _buildCardOutput(),
           ],
         ),
       ),

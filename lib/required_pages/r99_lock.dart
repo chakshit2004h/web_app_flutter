@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../addon/provider.dart'; // Adjust import path if needed
+import 'package:provider/provider.dart';
+import '../addon/provider.dart'; // Ensure this path is correct
 
 class R99LockPage extends StatefulWidget {
   const R99LockPage({super.key});
@@ -16,21 +16,19 @@ class _R99LockPageState extends State<R99LockPage> {
   @override
   void initState() {
     super.initState();
-    _loadLockStatus();
+    _loadPreferences(); // Load lock status on init
   }
 
-  // Load the lock status from SharedPreferences
-  _loadLockStatus() async {
+  Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       isLockActivated = prefs.getBool('isLockActivated') ?? false;
     });
   }
 
-  // Save the lock status to SharedPreferences
-  _saveLockStatus() async {
+  Future<void> _savePreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLockActivated', isLockActivated);
+    await prefs.setBool('isLockActivated', isLockActivated);
   }
 
   @override
@@ -40,84 +38,99 @@ class _R99LockPageState extends State<R99LockPage> {
       height: double.infinity,
       color: const Color(0xff1a1e22),
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(
-            Icons.lock,
-            size: 100.0,
-            color: isLockActivated ? Colors.red : Colors.green,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            isLockActivated ? 'R99 Lock is Activated!' : 'R99 Lock is Deactivated!',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCustomSwitch(
+              label: "Enable R99 Lock",
+              value: isLockActivated,
+              onChanged: (val) {
+                setState(() {
+                  isLockActivated = val;
+                });
+                _savePreferences(); // Save updated value
+              },
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                isLockActivated = !isLockActivated;
-                _saveLockStatus(); // Save the new lock status
-              });
-
-              // Add to Provider state
-              Provider.of<SaveCardState>(context, listen: false)
-                  .addCard(cardOutput(lockStatus: isLockActivated));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff04bcb0),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              shadowColor: Colors.black.withOpacity(0.2),
-              elevation: 5,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  isLockActivated ? Icons.lock_open : Icons.lock,
+            const SizedBox(height: 30),
+            Center(
+              child: Text(
+                'R99 Lock is ${isLockActivated ? "Activated" : "Deactivated"}',
+                style: const TextStyle(
                   color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  isLockActivated ? 'Deactivate' : 'Activate',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Provider.of<SaveCardState>(context, listen: false)
+                      .addCard(cardOutput(lockStatus: isLockActivated));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-              ],
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 30),
-          cardOutput(lockStatus: isLockActivated),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildCustomSwitch({
+    required String label,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Switch(
+          value: value,
+          onChanged: onChanged,
+          activeColor: const Color(0xff04bcb0),
+        ),
+      ],
     );
   }
 }
 
-// Card Output Widget to display lock status
-Widget cardOutput({
-  required bool lockStatus,
-}) {
+Widget cardOutput({required bool lockStatus}) {
   return Card(
     color: const Color(0xff101f1f),
     elevation: 5,
     child: ListTile(
-      title: const Text("Lock Status", style: TextStyle(color: Colors.white)),
+      title: const Text("R99 Lock", style: TextStyle(color: Colors.white)),
       subtitle: Text(
-        lockStatus ? "R99 Lock is Activated" : "R99 Lock is Deactivated",
+        "R99 Lock is ${lockStatus ? 'Activated' : 'Deactivated'}",
         style: const TextStyle(color: Colors.white),
       ),
     ),

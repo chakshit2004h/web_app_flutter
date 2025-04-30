@@ -11,13 +11,14 @@ class WaitForPciPage extends StatefulWidget {
 class _WaitForPciPageState extends State<WaitForPciPage> {
   final TextEditingController _pciController = TextEditingController();
   final TextEditingController _pciVariableController = TextEditingController();
+  final TextEditingController _timeoutController = TextEditingController();
   double _timeout = 300;
 
   // GSM Cell Info Fields (Similar to cellInfo in the second page)
   Map<String, String> pciInfo = {
     "mPci": "",
     "mPci Variable": "",
-    "mTimeout": "",
+    "mTimeout": "300",
   };
 
   @override
@@ -33,6 +34,7 @@ class _WaitForPciPageState extends State<WaitForPciPage> {
       pciInfo['mPci'] = prefs.getString('mPci') ?? '';
       pciInfo['mPci Variable'] = prefs.getString('mPci Variable') ?? '';
       pciInfo['mTimeout'] = prefs.getString('mTimeout') ?? '300';
+      _timeoutController.text = pciInfo['mTimeout']!;
     });
   }
 
@@ -70,19 +72,16 @@ class _WaitForPciPageState extends State<WaitForPciPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Slider(
-              value: _timeout,
-              min: 1,
-              max: 600,
-              divisions: 599,
-              label: _timeout.toInt().toString(),
-              activeColor: const Color(0xff04bcb0),
-              onChanged: (value) {
+            _buildCustomTextField(
+              label: "Timeout (seconds)",
+              value: pciInfo['mTimeout']!,
+              onChanged: (val) {
                 setState(() {
-                  _timeout = value;
-                  pciInfo['mTimeout'] = value.toInt().toString(); // Sync the timeout value
+                  pciInfo['mTimeout'] = val;
+                  _timeout = double.tryParse(val) ?? _timeout;
                 });
               },
+              isNumber: true,
             ),
             const SizedBox(height: 30),
             Center(
@@ -127,6 +126,7 @@ class _WaitForPciPageState extends State<WaitForPciPage> {
     required String label,
     required String value,
     required ValueChanged<String> onChanged,
+    bool isNumber = false, // Optional: for handling numeric input validation
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -143,6 +143,8 @@ class _WaitForPciPageState extends State<WaitForPciPage> {
           const SizedBox(height: 6),
           TextField(
             style: const TextStyle(color: Colors.white),
+            controller: isNumber ? _timeoutController : null,
+            keyboardType: isNumber ? TextInputType.number : TextInputType.text,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey[850],
