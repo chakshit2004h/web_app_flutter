@@ -195,7 +195,7 @@ class _DynamicWcdmaCellInfoPageState extends State<DynamicWcdmaCellInfoPage> {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.white70),
+          labelStyle: const TextStyle(color: const Color(0xff04bcb0),),
           hintText: 'Enter $label',
           hintStyle: const TextStyle(color: Colors.white38),
         ),

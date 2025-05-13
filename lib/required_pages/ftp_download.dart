@@ -231,7 +231,7 @@ class _FtpDownloadPageState extends State<FtpDownloadPage> {
       style: const TextStyle(color: Colors.white,),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white,), // Remove hover color
+        labelStyle: const TextStyle(color:const Color(0xff04bcb0),), // Remove hover color
       ),
     );
   }

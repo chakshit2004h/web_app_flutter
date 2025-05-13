@@ -112,7 +112,7 @@ class _ConditionalLoopPageState extends State<ConditionalLoopPage> {
         Text(
           label,
           style: const TextStyle(
-            color: Colors.white,
+            color:const Color(0xff04bcb0),
             fontWeight: FontWeight.bold,
           ),
         ),

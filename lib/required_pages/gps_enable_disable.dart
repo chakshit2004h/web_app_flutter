@@ -40,7 +40,7 @@ class _GpsEnableDisableState extends State<GpsEnableDisable> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 300,
       color: Color(0xff1a1e22),
       padding: EdgeInsets.all(16),
       child: Column(
@@ -74,7 +74,7 @@ class _GpsEnableDisableState extends State<GpsEnableDisable> {
             decoration: InputDecoration(
               hintText: "bir.azenqos.com",
               labelText: 'IP Addr.',
-              labelStyle: TextStyle(color: Colors.white),
+              labelStyle: TextStyle(color: Colors.grey,),
             ),
           ),
           SizedBox(height: 20),

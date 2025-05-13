@@ -207,7 +207,7 @@ class _InstagramPostVideoPageState extends State<InstagramPostVideoPage> {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.grey),
+          labelStyle: const TextStyle(color:const Color(0xff04bcb0),),
         ),
         onChanged: onChanged,
       ),

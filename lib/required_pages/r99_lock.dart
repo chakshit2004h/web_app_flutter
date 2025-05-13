@@ -106,7 +106,7 @@ class _R99LockPageState extends State<R99LockPage> {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color:const Color(0xff04bcb0),fontWeight: FontWeight.bold),
           ),
         ),
         Switch(

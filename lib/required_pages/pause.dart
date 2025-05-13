@@ -159,7 +159,7 @@ class _PausePageState extends State<PausePage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: const Color(0xff04bcb0),),
         onChanged: onChanged,
         controller: controller,
       ),

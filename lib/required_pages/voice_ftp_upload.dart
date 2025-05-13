@@ -182,7 +182,7 @@ class _VoiceFtpUploadState extends State<VoiceFtpUpload> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: const Color(0xff04bcb0),)),
           const SizedBox(height: 4),
           TextField(
             controller: controller,

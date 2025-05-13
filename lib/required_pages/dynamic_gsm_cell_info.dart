@@ -122,7 +122,7 @@ class _GSMCellInfoPageState extends State<GSMCellInfoPage> {
           Text(
             label.toUpperCase(),
             style: const TextStyle(
-              color: Colors.white,
+              color: const Color(0xff04bcb0),
               fontWeight: FontWeight.bold,
             ),
           ),

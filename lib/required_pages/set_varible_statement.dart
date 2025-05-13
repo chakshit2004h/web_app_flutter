@@ -103,7 +103,7 @@ class _SetVariablePageState extends State<SetVariablePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(label, style: const TextStyle(color:const Color(0xff04bcb0), fontWeight: FontWeight.bold)),
         const SizedBox(height: 6),
         TextField(
           controller: controller,

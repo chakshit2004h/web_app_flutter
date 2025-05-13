@@ -125,7 +125,7 @@ class _OttVideoStreamingMosState extends State<OttVideoStreamingMos> {
         Text(
           label,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold),
+              color:const Color(0xff04bcb0),fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         TextField(

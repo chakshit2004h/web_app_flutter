@@ -125,7 +125,7 @@ class _RequireCellFilePageState extends State<RequireCellFilePage> {
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color(0xff04bcb0),
         ),
       ),
     );

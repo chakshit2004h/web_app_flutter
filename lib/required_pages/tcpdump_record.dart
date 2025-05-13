@@ -64,7 +64,7 @@ class _TcpDumpRecordPageState extends State<TcpDumpRecordPage> {
             },
           ),
           const SizedBox(height: 20),
-          const Text('Packet Count', style: TextStyle(color: Colors.white)),
+          const Text('Packet Count', style: TextStyle(color:const Color(0xff04bcb0),)),
           const SizedBox(height: 6),
           TextField(
             controller: packetCountController,
@@ -76,7 +76,7 @@ class _TcpDumpRecordPageState extends State<TcpDumpRecordPage> {
             ),
           ),
           const SizedBox(height: 16),
-          const Text('Snaplen', style: TextStyle(color: Colors.white)),
+          const Text('Snaplen', style: TextStyle(color: const Color(0xff04bcb0),)),
           const SizedBox(height: 6),
           TextField(
             controller: snaplenController,

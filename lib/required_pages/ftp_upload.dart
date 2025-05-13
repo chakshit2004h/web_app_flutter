@@ -140,7 +140,7 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.white),
+          labelStyle: const TextStyle(color: const Color(0xff04bcb0),),
         ),
       ),
     );

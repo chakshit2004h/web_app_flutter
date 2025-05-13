@@ -147,7 +147,7 @@ class _SetApnPageState extends State<SetApnPage> {
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white70),
+        labelStyle: const TextStyle(color: const Color(0xff04bcb0),),
       ),
     );
   }

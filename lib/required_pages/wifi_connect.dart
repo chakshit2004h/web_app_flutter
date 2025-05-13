@@ -80,7 +80,7 @@ class _WifiConnectPageState extends State<WifiConnectPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(label, style: const TextStyle(fontWeight: FontWeight.bold, color:const Color(0xff04bcb0),)),
         const SizedBox(height: 8),
         TextField(
           controller: controller,
@@ -114,20 +114,20 @@ class _WifiConnectPageState extends State<WifiConnectPage> {
           children: [
             SwitchListTile(
               activeColor: const Color(0xff04bcb0),
-              title: const Text('Allow to Use Configured Network', style: TextStyle(color: Colors.white)),
+              title: const Text('Allow to Use Configured Network', style: TextStyle(color:Colors.white,)),
               value: allowToUseConfiguredNetwork,
               onChanged: (val) => setState(() => allowToUseConfiguredNetwork = val),
             ),
             const SizedBox(height: 16),
             SwitchListTile(
               activeColor: const Color(0xff04bcb0),
-              title: const Text('Clear All Configurations', style: TextStyle(color: Colors.white)),
+              title: const Text('Clear All Configurations', style: TextStyle(color: Colors.white,)),
               value: clearAllConfigurations,
               onChanged: (val) => setState(() => clearAllConfigurations = val),
             ),
             const SizedBox(height: 16),
 
-            const Text('EAP Method:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+            const Text('EAP Method:', style: TextStyle(fontWeight: FontWeight.bold, color:const Color(0xff04bcb0),)),
             DropdownButton<int>(
               dropdownColor: const Color(0xff2c2f33),
               value: eapMethod,
