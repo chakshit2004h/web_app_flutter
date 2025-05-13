@@ -101,16 +101,6 @@ class _SftpUploadPageState extends State<SftpUploadPage> {
             keyboardType: keyboardType,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              filled: true,
-              fillColor: const Color(0xff2c2f33),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Color(0xff04bcb0)),
-              ),
               contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             ),
           ),
@@ -176,8 +166,9 @@ class _SftpUploadPageState extends State<SftpUploadPage> {
             _buildTextField('Avg Threshold (kbps)', avgThresholdController, keyboardType: TextInputType.number),
             _buildTextField('Max Threshold (kbps)', maxThresholdController, keyboardType: TextInputType.number),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:[ElevatedButton(
                 onPressed: () {
                   _savePreferences();
                   saveCardState.addCard(_cardOutput());
@@ -185,10 +176,20 @@ class _SftpUploadPageState extends State<SftpUploadPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-                child: const Text('Save', style: TextStyle(color: Colors.white)),
-              ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ),]
             ),
           ],
         ),

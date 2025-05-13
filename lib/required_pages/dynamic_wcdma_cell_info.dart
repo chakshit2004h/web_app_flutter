@@ -117,7 +117,7 @@ class _DynamicWcdmaCellInfoPageState extends State<DynamicWcdmaCellInfoPage> {
       backgroundColor: const Color(0xff1a1e22),
       body: Center(
         child: Container(
-          width: 350,
+          width: 300,
           height: double.infinity,
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
@@ -137,8 +137,9 @@ class _DynamicWcdmaCellInfoPageState extends State<DynamicWcdmaCellInfoPage> {
                 _buildCustomTextField("SCR", scrController),
                 _buildCustomTextField("Site", siteController),
                 const SizedBox(height: 30),
-                Center(
-                  child: ElevatedButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [ElevatedButton(
                     onPressed: () {
                       _savePreferences(); // Save to shared preferences
 
@@ -164,26 +165,19 @@ class _DynamicWcdmaCellInfoPageState extends State<DynamicWcdmaCellInfoPage> {
                       backgroundColor: const Color(0xff04bcb0),
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      elevation: 4,
+                    ),
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.1,
                       ),
                     ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.save, color: Colors.white),
-                        SizedBox(width: 8),
-                        Text(
-                          'Save',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            letterSpacing: 1.2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  ),]
                 ),
               ],
             ),
@@ -204,12 +198,6 @@ class _DynamicWcdmaCellInfoPageState extends State<DynamicWcdmaCellInfoPage> {
           labelStyle: const TextStyle(color: Colors.white70),
           hintText: 'Enter $label',
           hintStyle: const TextStyle(color: Colors.white38),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white38),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff04bcb0)),
-          ),
         ),
         onChanged: (val) {
           setState(() {

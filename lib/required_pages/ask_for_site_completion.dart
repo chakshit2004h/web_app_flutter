@@ -101,8 +101,9 @@ class _CompletionFileState extends State<CompletionFile> {
               hintText: 'Any additional info...',
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences();
                   Provider.of<SaveCardState>(context, listen: false).addCard(
@@ -116,21 +117,21 @@ class _CompletionFileState extends State<CompletionFile> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  elevation: 4,
                 ),
                 child: const Text(
                   'Save',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                    fontSize: 14,
+                    letterSpacing: 1.1,
                   ),
                 ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -154,25 +155,6 @@ class _CompletionFileState extends State<CompletionFile> {
         TextField(
           controller: controller,
           style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.white38),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          ),
         ),
       ],
     );

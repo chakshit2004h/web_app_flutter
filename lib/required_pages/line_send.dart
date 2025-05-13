@@ -157,8 +157,9 @@ class _LineSendConfigPageState extends State<LineSendPage> {
               ],
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences();
                   Provider.of<SaveCardState>(context, listen: false)
@@ -167,25 +168,20 @@ class _LineSendConfigPageState extends State<LineSendPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.send, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      'Send Message',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
                 ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -210,7 +206,6 @@ class _LineSendConfigPageState extends State<LineSendPage> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(color: Colors.white),
-          border: const OutlineInputBorder(),
         ),
       ),
     );

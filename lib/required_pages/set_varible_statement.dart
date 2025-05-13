@@ -58,8 +58,9 @@ class _SetVariablePageState extends State<SetVariablePage> {
             const SizedBox(height: 20),
             _buildTextField("Value", valueController),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   Provider.of<SaveCardState>(context, listen: false).addCard(
                     variableCardOutput(
@@ -74,9 +75,23 @@ class _SetVariablePageState extends State<SetVariablePage> {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xff04bcb0)),
-                child: const Text('Save', style: TextStyle(color: Colors.white)),
-              ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ),]
             ),
           ],
         ),
@@ -97,10 +112,6 @@ class _SetVariablePageState extends State<SetVariablePage> {
           decoration: InputDecoration(
             hintText: "Enter $label",
             hintStyle: const TextStyle(color: Colors.white54),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xff04bcb0)),
-            ),
           ),
         ),
       ],

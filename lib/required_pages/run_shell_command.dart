@@ -66,8 +66,9 @@ class _RunShellCommandState extends State<RunShellCommand> {
               });
             }),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences(); // Save to shared preferences
 
@@ -83,24 +84,19 @@ class _RunShellCommandState extends State<RunShellCommand> {
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
                   ),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -121,20 +117,6 @@ class _RunShellCommandState extends State<RunShellCommand> {
           onChanged: onChanged,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),
         ),
@@ -157,20 +139,6 @@ class _RunShellCommandState extends State<RunShellCommand> {
           keyboardType: TextInputType.number,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),
         ),

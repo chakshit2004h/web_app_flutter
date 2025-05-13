@@ -164,8 +164,9 @@ class _FtpDownloadPageState extends State<FtpDownloadPage> {
               setState(() => username = val);
             }),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences(); // Save to shared preferences
 
@@ -194,23 +195,19 @@ class _FtpDownloadPageState extends State<FtpDownloadPage> {
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
                   ),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -234,23 +231,7 @@ class _FtpDownloadPageState extends State<FtpDownloadPage> {
       style: const TextStyle(color: Colors.white,),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.white,),
-        filled: true,
-        fillColor: Colors.grey[850], // Match your background color
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border when enabled
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border when focused
-        ),
-        hoverColor: Colors.transparent, // Remove hover color
+        labelStyle: const TextStyle(color: Colors.white,), // Remove hover color
       ),
     );
   }
@@ -264,22 +245,7 @@ class _FtpDownloadPageState extends State<FtpDownloadPage> {
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white,),
-        filled: true,
-        fillColor: Colors.grey[850], // Match your background color
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border when enabled
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none, // Remove border when focused
-        ),
-        hoverColor: Colors.transparent, // Remove hover color
+        // Remove hover color
       ),
     );
   }

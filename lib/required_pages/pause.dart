@@ -83,8 +83,9 @@ class _PausePageState extends State<PausePage> {
               onChanged: (val) => setState(() => timeout = val.toInt()),
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences(); // Save to shared preferences
 
@@ -102,24 +103,19 @@ class _PausePageState extends State<PausePage> {
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
                   ),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -164,13 +160,6 @@ class _PausePageState extends State<PausePage> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: const TextStyle(color: Colors.white70),
-          filled: true,
-          fillColor: const Color(0xff2a2e33),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        ),
         onChanged: onChanged,
         controller: controller,
       ),

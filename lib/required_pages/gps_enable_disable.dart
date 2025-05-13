@@ -78,18 +78,35 @@ class _GpsEnableDisableState extends State<GpsEnableDisable> {
             ),
           ),
           SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              // Add to global state when saving
-              setState(() {
-                Provider.of<SaveCardState>(context, listen: false)
-                    .addCard(cardOutput(lockScript: lockScript, useTraceroute: useTraceroute));
-              });
-            },
-            child: Text('Save', style: TextStyle(color: Colors.white)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff04bcb0),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Add to global state when saving
+                  setState(() {
+                    Provider.of<SaveCardState>(context, listen: false)
+                        .addCard(cardOutput(lockScript: lockScript, useTraceroute: useTraceroute));
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

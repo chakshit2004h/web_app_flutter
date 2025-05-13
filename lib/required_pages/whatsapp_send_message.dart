@@ -103,8 +103,9 @@ class _WhatsAppMessageSettingsPageState extends State<WhatsAppMessageSettingsPag
             const SizedBox(height: 16),
             _buildRadioGroup(),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:[ ElevatedButton(
                 onPressed: () {
                   setState(() {
                     message = messageController.text;
@@ -129,12 +130,23 @@ class _WhatsAppMessageSettingsPageState extends State<WhatsAppMessageSettingsPag
                     ),
                   );
                 },
-                child: const Text('Save', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-              ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ),]
             ),
           ],
         ),
@@ -167,10 +179,7 @@ class _WhatsAppMessageSettingsPageState extends State<WhatsAppMessageSettingsPag
           keyboardType: keyboardType,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
           ),
         ),
       ],

@@ -97,8 +97,9 @@ class _InstagramPostVideoPageState extends State<InstagramPostVideoPage> {
               onChanged: (val) => setState(() => videoUrl = val),
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:[ ElevatedButton(
                 onPressed: () {
                   _savePreferences(); // Save to shared preferences
 
@@ -116,24 +117,19 @@ class _InstagramPostVideoPageState extends State<InstagramPostVideoPage> {
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
                   ),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -211,13 +207,7 @@ class _InstagramPostVideoPageState extends State<InstagramPostVideoPage> {
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.white),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white24),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff04bcb0)),
-          ),
+          labelStyle: const TextStyle(color: Colors.grey),
         ),
         onChanged: onChanged,
       ),

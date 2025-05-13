@@ -108,29 +108,27 @@ class _SetApnPageState extends State<SetApnPage> {
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+           Row(
+             mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: _submitForm,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
                 ),
-              ),
+              ),]
             )
           ],
         ),
@@ -150,13 +148,6 @@ class _SetApnPageState extends State<SetApnPage> {
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white70),
-        filled: true,
-        fillColor: const Color(0xff2a2f35),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff04bcb0), width: 2),
-          borderRadius: BorderRadius.circular(10),
-        ),
       ),
     );
   }

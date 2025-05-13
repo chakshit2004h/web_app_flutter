@@ -47,7 +47,7 @@ class _TcpDumpRecordPageState extends State<TcpDumpRecordPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 300,
       color: const Color(0xff1a1e22),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -73,9 +73,6 @@ class _TcpDumpRecordPageState extends State<TcpDumpRecordPage> {
             decoration: InputDecoration(
               hintText: 'Enter packet count',
               hintStyle: const TextStyle(color: Colors.grey),
-              filled: true,
-              fillColor: Colors.black26,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
           const SizedBox(height: 16),
@@ -88,29 +85,43 @@ class _TcpDumpRecordPageState extends State<TcpDumpRecordPage> {
             decoration: InputDecoration(
               hintText: 'Enter snaplen value',
               hintStyle: const TextStyle(color: Colors.grey),
-              filled: true,
-              fillColor: Colors.black26,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              _savePreferences();
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _savePreferences();
 
-              // Add to global card list
-              Provider.of<SaveCardState>(context, listen: false).addCard(
-                tcpDumpCardOutput(
-                  isTcpDumpEnabled: isTcpDumpEnabled,
-                  packetCount: packetCountController.text,
-                  snaplen: snaplenController.text,
+                  // Add to global card list
+                  Provider.of<SaveCardState>(context, listen: false).addCard(
+                    tcpDumpCardOutput(
+                      isTcpDumpEnabled: isTcpDumpEnabled,
+                      packetCount: packetCountController.text,
+                      snaplen: snaplenController.text,
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff04bcb0),
-            ),
-            child: const Text('Save', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

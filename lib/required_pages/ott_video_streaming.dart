@@ -87,8 +87,9 @@ class _OttVideoStreamingMosPageState extends State<OttVideoStreamingMosPage> {
             },
           ),
           const SizedBox(height: 30),
-          Center(
-            child: ElevatedButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [ElevatedButton(
               onPressed: () {
                 _savePreferences(); // Save to shared preferences
 
@@ -96,11 +97,23 @@ class _OttVideoStreamingMosPageState extends State<OttVideoStreamingMosPage> {
                 Provider.of<SaveCardState>(context, listen: false)
                     .addCard(ottCardOutput(timeout: timeout, videoId: videoId, takeScreenshotWhenDone: takeScreenshotWhenDone));
               },
-              child: const Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff04bcb0),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 4,
               ),
-            ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
+              ),
+            ),]
           ),
         ],
       ),
@@ -153,19 +166,6 @@ class _OttVideoStreamingMosPageState extends State<OttVideoStreamingMosPage> {
         TextField(
           controller: controller,
           style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          ),
           onChanged: onChanged,
         ),
       ],

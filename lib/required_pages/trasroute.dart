@@ -54,12 +54,6 @@ class _TracerouteState extends State<Traceroute> {
             decoration: InputDecoration(
               hintText: "$maxHop",
               hintStyle: const TextStyle(color: Colors.white70),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white54),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff04bcb0)),
-              ),
             ),
             onChanged: (value) {
               setState(() {
@@ -74,12 +68,6 @@ class _TracerouteState extends State<Traceroute> {
             decoration: InputDecoration(
               hintText: "$serverAddr",
               hintStyle: const TextStyle(color: Colors.white70),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white54),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff04bcb0)),
-              ),
             ),
             onChanged: (value) {
               setState(() {
@@ -99,29 +87,34 @@ class _TracerouteState extends State<Traceroute> {
             activeColor: const Color(0xff04bcb0),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              _savePreferences();
-              Provider.of<SaveCardState>(context, listen: false).addCard(
-                cardOutput(maxHop: maxHop, serverAddr: serverAddr, useTraceroute6: useTraceroute6),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff04bcb0),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _savePreferences();
+                  Provider.of<SaveCardState>(context, listen: false).addCard(
+                    cardOutput(maxHop: maxHop, serverAddr: serverAddr, useTraceroute6: useTraceroute6),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
               ),
-              elevation: 4,
-            ),
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.1,
-              ),
-            ),
+            ],
           ),
         ],
       ),
@@ -134,9 +127,9 @@ class _TracerouteState extends State<Traceroute> {
       child: Text(
         text,
         style: const TextStyle(
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color(0xff04bcb0),
         ),
       ),
     );

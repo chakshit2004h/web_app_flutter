@@ -107,8 +107,9 @@ class _SendEmailPageState extends State<SendEmailPage> {
             const SizedBox(height: 16),
             _buildCustomTextField(label: "File Size", controller: fileSizeController),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences(); // Save to shared preferences
 
@@ -150,7 +151,7 @@ class _SendEmailPageState extends State<SendEmailPage> {
                     ),
                   ],
                 ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -176,20 +177,6 @@ class _SendEmailPageState extends State<SendEmailPage> {
           keyboardType: keyboardType,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
             contentPadding:
             const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),

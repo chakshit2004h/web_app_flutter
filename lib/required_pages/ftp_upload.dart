@@ -99,8 +99,9 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
             _buildNumberField("Timeout (s)", "timeout"),
             _buildTextField("Username", "username"),
             const SizedBox(height: 30),
-            Center(
-              child: ElevatedButton(
+           Row(
+             mainAxisAlignment: MainAxisAlignment.end,
+              children: [ElevatedButton(
                 onPressed: () {
                   _savePreferences();
                   Provider.of<SaveCardState>(context, listen: false)
@@ -109,23 +110,20 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff04bcb0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
                 ),
-              ),
+              ),]
             ),
           ],
         ),
@@ -143,8 +141,6 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(color: Colors.white),
-          border: const OutlineInputBorder(),
-          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
         ),
       ),
     );
@@ -161,8 +157,7 @@ class _FTPUploadPageState extends State<FTPUploadPage> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(color: Colors.white),
-          border: const OutlineInputBorder(),
-          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+
         ),
       ),
     );

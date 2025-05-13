@@ -88,8 +88,10 @@ class _LTEEARFCNLockPageState extends State<LTEEARFCNLockPage> {
             },
           ),
           const SizedBox(height: 30),
-          Center(
-            child: ElevatedButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
               onPressed: () {
                 _savePreferences(); // Save to shared preferences
 
@@ -97,11 +99,24 @@ class _LTEEARFCNLockPageState extends State<LTEEARFCNLockPage> {
                 Provider.of<SaveCardState>(context, listen: false)
                     .addCard(cardOutput(band: band, earfcn: earfcn, dontDisableCa: dontDisableCa));
               },
-              child: const Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff04bcb0),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 4,
+              ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
               ),
             ),
+    ]
           ),
         ],
       ),
@@ -126,12 +141,6 @@ class _LTEEARFCNLockPageState extends State<LTEEARFCNLockPage> {
           decoration: InputDecoration(
             hintText: "Enter $label",
             hintStyle: const TextStyle(color: Colors.white54),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xff04bcb0)),
-            ),
           ),
           onChanged: onChanged,
         ),

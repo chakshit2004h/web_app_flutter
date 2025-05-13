@@ -75,8 +75,9 @@ class _RouterConfigPageState extends State<RouterConfigPage> {
             keyboardType: TextInputType.numberWithOptions(decimal: true),
           ),
           const SizedBox(height: 30),
-          Center(
-            child: ElevatedButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [ElevatedButton(
               onPressed: () {
                 _savePreferences(); // Save to shared preferences
 
@@ -89,11 +90,23 @@ class _RouterConfigPageState extends State<RouterConfigPage> {
                   ),
                 );
               },
-              child: const Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff04bcb0),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 4,
               ),
-            ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
+              ),
+            ),]
           ),
         ],
       ),
@@ -124,20 +137,6 @@ class _RouterConfigPageState extends State<RouterConfigPage> {
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(color: Colors.grey),
-            filled: true,
-            fillColor: const Color(0xff2c2f33),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Colors.transparent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xff04bcb0)),
-            ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
           ),
         ),

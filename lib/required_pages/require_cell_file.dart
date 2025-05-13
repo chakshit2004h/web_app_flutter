@@ -70,12 +70,6 @@ class _RequireCellFilePageState extends State<RequireCellFilePage> {
             decoration: InputDecoration(
               hintText: "Enter USSD code",
               hintStyle: const TextStyle(color: Colors.white70),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white54),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff04bcb0)),
-              ),
             ),
             onChanged: (value) {
               setState(() {
@@ -89,29 +83,34 @@ class _RequireCellFilePageState extends State<RequireCellFilePage> {
             style: const TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              _savePreferences();
-              Provider.of<SaveCardState>(context, listen: false).addCard(
-                cardOutput(timeout: mTimeout, ussd: mUssd),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff04bcb0),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  _savePreferences();
+                  Provider.of<SaveCardState>(context, listen: false).addCard(
+                    cardOutput(timeout: mTimeout, ussd: mUssd),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff04bcb0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                ),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                ),
               ),
-              elevation: 4,
-            ),
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.1,
-              ),
-            ),
+            ],
           ),
         ],
       ),

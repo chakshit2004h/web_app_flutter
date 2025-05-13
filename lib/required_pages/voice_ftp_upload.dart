@@ -125,50 +125,48 @@ class _VoiceFtpUploadState extends State<VoiceFtpUpload> {
               _savePreferences();  // Save the updated value
             }),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Save to global state when saving
-                setState(() {
-                  Provider.of<SaveCardState>(context, listen: false)
-                      .addCard(cardOutput(
-                    answerTimeout: answerTimeout,
-                    duration: duration,
-                    filesizeStr: filesizeStr,
-                    inactivityTimeout: inactivityTimeout,
-                    ip: ip,
-                    password: password,
-                    phoneNumber: phoneNumber,
-                    sessionCount: sessionCount,
-                    stopAtVoiceEnd: stopAtVoiceEnd,
-                    timeoutData: timeoutData,
-                    timeoutVoice: timeoutVoice,
-                    username: username,
-                  ));
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff04bcb0),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                shadowColor: Colors.black.withOpacity(0.2),
-                elevation: 5,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Save to global state when saving
+                    setState(() {
+                      Provider.of<SaveCardState>(context, listen: false)
+                          .addCard(cardOutput(
+                        answerTimeout: answerTimeout,
+                        duration: duration,
+                        filesizeStr: filesizeStr,
+                        inactivityTimeout: inactivityTimeout,
+                        ip: ip,
+                        password: password,
+                        phoneNumber: phoneNumber,
+                        sessionCount: sessionCount,
+                        stopAtVoiceEnd: stopAtVoiceEnd,
+                        timeoutData: timeoutData,
+                        timeoutVoice: timeoutVoice,
+                        username: username,
+                      ));
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff04bcb0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 4,
+                  ),
+                  child: const Text(
                     'Save',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1.1,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )
           ],
         ),
@@ -191,20 +189,7 @@ class _VoiceFtpUploadState extends State<VoiceFtpUpload> {
             onChanged: onChanged,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.black12,
               hintStyle: const TextStyle(color: Colors.grey),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white24),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.tealAccent),
-                borderRadius: BorderRadius.circular(8),
-              ),
             ),
           ),
         ],

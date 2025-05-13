@@ -46,8 +46,9 @@ class _DataEnableDisableState extends State<DataEnableDisable> {
             });
           }),
           const SizedBox(height: 30),
-          Center(
-            child: ElevatedButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [ElevatedButton(
               onPressed: () {
                 _savePreferences(); // Save to shared preferences
 
@@ -55,11 +56,23 @@ class _DataEnableDisableState extends State<DataEnableDisable> {
                 Provider.of<SaveCardState>(context, listen: false)
                     .addCard(cardOutput(isEnable: isEnable));
               },
-              child: const Text('Save', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff04bcb0),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 4,
               ),
-            ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.1,
+                ),
+              ),
+            ),]
           ),
         ],
       ),
